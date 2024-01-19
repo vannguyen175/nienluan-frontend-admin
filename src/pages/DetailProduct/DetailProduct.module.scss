@@ -1,0 +1,16 @@
+.carousel {
+    width: 100%;
+    background-color: #EEEEEE;
+    text-align: center;
+    img {
+        max-width: 600px;
+        min-width: 300px;
+        max-height: 400px;
+        min-height: 250px;
+    }
+
+    .carousel-control-prev-icon, 
+    .carousel-control-next-icon {
+        background-color: black;
+    }
+}

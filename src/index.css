@@ -1,0 +1,121 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+:root {
+    --main-color: #7f703d;
+    --light-color: #e6e2d8;
+    --orange-color: #d78d3a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Quicksand";
+    text-decoration-line: none;
+    font-size: 16px;
+}
+
+body {
+    margin: auto;
+    background-color: var(--light-color);
+}
+
+a[href],
+li {
+    color: var(--main-color);
+    text-decoration: none;
+    transition: 0.1s ease;
+    list-style-type: none;
+    &:hover {
+        color: #46380b;
+    }
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+.box-shadow {
+    box-shadow: 0px 0px 20px -3px rgba(0, 0, 0, 0.4);
+}
+
+.title {
+    font-size: 1.4rem;
+    color: var(--main-color);
+    font-weight: 700;
+    user-select: none;
+    margin: 10px 0 5px 0;
+}
+
+.inner-content {
+    background-color: white;
+    margin: 10px 5px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+#button-dropdown {
+    padding: 5px 10px;
+    margin: 0px 5px;
+    border-radius: 3px;
+    border: none;
+    color: var(--main-color);
+    background-color: rgb(255, 255, 255);
+    border: 1px solid var(--main-color);
+    font-weight: 600;
+    transition: 0.2s ease;
+    &:hover {
+        color: var(--main-color);
+        background-color: var(--light-color);
+    }
+}
+
+.dropdown-menu {
+    flex-direction: column;
+    a {
+        display: block;
+        height: 40px;
+        text-align: center;
+        padding-top:8px;
+        width: 200px;
+        &:hover {
+            background-color: var(--light-color);
+        }
+    }
+}
+
+svg {
+    font-size: 1.4rem;
+}
+
+.tippy {
+    background-color: var(--light-color);
+    color: black;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+
+.animated {
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.fadeInDown {
+    -webkit-animation-name: fadeInDown;
+    animation-name: fadeInDown;
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

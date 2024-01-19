@@ -1,0 +1,44 @@
+.container {
+    width: 500px;
+    height: fit-content;
+    margin: 30px auto;
+    padding-bottom: 40px;
+    border-radius: 15px;
+
+    h2 {
+        margin: 30px 0px 30px 20px;
+        font-size: 1.8rem;
+    }
+}
+
+
+
+.forgot-password {
+    display: block;
+    text-align: left;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin: 10px 0 20px 20px;
+    color: var(--orange-color);
+}
+
+.login-btn {
+    // display: block;
+    width: 300px;
+}
+
+form {
+    text-align: center;
+    input {
+        width: 420px;
+        margin: 20px 0px;
+    }
+}
+
+.register-link {
+    margin-top: 10px;
+    a {
+        font-weight: 700;
+        color: var(--orange-color);
+    }
+}

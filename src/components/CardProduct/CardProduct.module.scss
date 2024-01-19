@@ -1,0 +1,103 @@
+.container {
+    position: relative;
+    border: 1px solid var(--main-color);
+    width: 48%;
+    min-width: 500px;
+    padding: 5px;
+    margin: 5px 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 8px -3px rgba(0, 0, 0, 0.8);
+    transition: 0.1s ease;
+
+    &:hover {
+        background-color: var(--light-color);
+    }
+}
+
+.image-product {
+    width: 150px;
+    height: 170px;
+}
+
+.detail-product {
+    padding: 10px 5px;
+    .name {
+        font-size: 1.2rem;
+        color: black;
+        font-weight: 600;
+    }
+
+    .price {
+        color: rgb(210, 69, 69);
+        font-size: 1rem;
+        font-weight: 700;
+    }
+
+    .info-seller {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        bottom: 10px;
+        p {
+            margin-right: 7px;
+            font-size: 0.8rem;
+        }
+    }
+}
+
+.like-btn {
+    margin-top: 10px;
+    padding-left: 2px;
+}
+
+// vertical card product
+
+.container-vertical {
+    position: relative;
+    border: 1px solid var(--main-color);
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+    width: 200px;
+    height: 270px;
+    padding: 5px;
+    margin: 15px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 8px -3px rgba(0, 0, 0, 0.8);
+    transition: 0.1s ease;
+
+    &:hover {
+        background-color: var(--light-color);
+    }
+}
+
+.image-product-vertical {
+    max-height: 180px;
+}
+
+
+.detail-product-vertical {
+    padding: 10px 5px;
+    .name {
+        font-size: 1rem;
+        color: black;
+        font-weight: 600;
+        margin: 0;
+    }
+    
+    .price {
+        color: rgb(210, 69, 69);
+        font-size: 1rem;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .info-seller {
+        display: flex;
+        position: absolute;
+        p {
+            margin-right: 7px;
+            font-size: 0.8rem;
+        }
+    }
+}
