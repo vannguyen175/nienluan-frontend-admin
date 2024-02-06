@@ -85,6 +85,12 @@ p {
     }
 }
 
+.spaceEvenly {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
 svg {
     font-size: 1.4rem;
 }

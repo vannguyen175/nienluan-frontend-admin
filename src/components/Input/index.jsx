@@ -7,19 +7,34 @@ import { useRef } from "react";
 
 const cx = classNames.bind(style);
 
-function Input({ error, text, type, placeholder, name, ...props }) {
+function Input({
+    error,
+    text,
+    type,
+    value,
+    placeholder = "",
+    textarea,
+    ...props
+}) {
+    let Comp = "input";
     const inputRef = useRef();
     const handleClick = () => {
         inputRef.current.value = "";
     };
+    if (textarea) {
+        Comp = textarea;
+    }
     return (
         <div>
             <span className={cx("container")}>
-                <input
+                <Comp
+                    className={cx("input")}
                     ref={inputRef}
                     type={type}
                     placeholder="&nbsp;"
+                    defaultValue={value}
                     onChange={props.handleOnChange}
+                    {...(textarea ? { rows: 4, cols: 48 } : {})}
                 />
                 <label className={cx("text")}>{text}</label>
 

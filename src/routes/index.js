@@ -2,9 +2,9 @@ import Home from "~/pages/Home/Home";
 import Products from "~/pages/Products/Products";
 import DetailProduct from "~/pages/DetailProduct/DetailProduct";
 import NotFoundPage from "~/pages/NotFoundPage/NotFoundPage";
-import UserLayout from "~/components/layouts/userLayouts/userLayout";
+import UserLayout from "~/layouts/userLayouts/userLayout";
 import { Fragment } from "react";
-import AccountUser from "~/pages/AccountUser/AccountUser";
+import Profile from "~/pages/Profile/Profile";
 import Login from "~/pages/Login/Login"
 import Register from "~/pages/Register/Register"
 
@@ -25,8 +25,8 @@ export const routes = [
         layout: UserLayout
     },
     {
-        path: "/account-user",
-        page: AccountUser,
+        path: "/profile",
+        page: Profile,
         layout: UserLayout
     },
     {

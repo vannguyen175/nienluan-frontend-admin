@@ -1,0 +1,42 @@
+import Axios from "axios";
+
+export const loginUser = async (data) => {
+    const res = await Axios.post(
+        `${process.env.REACT_APP_API_URL_BACKEND}/user/login`,
+        data
+    );
+    return res.data;
+};
+
+export const registerUser = async (data) => {
+    const res = await Axios.post(
+        `${process.env.REACT_APP_API_URL_BACKEND}/user/register`,
+        data
+    );
+    return res.data;
+};
+
+export const logoutUser = async () => {
+    const res = await Axios.post(
+        `${process.env.REACT_APP_API_URL_BACKEND}/user/logout`
+    );
+    return res.data;
+};
+
+export const getDetailUser = async (id, access_token) => {
+    const res = await Axios.get(
+        `${process.env.REACT_APP_API_URL_BACKEND}/user/details/${id}`,
+        { headers: { token: `Bearer ${access_token}` } }
+    );
+    return res.data;
+};
+
+export const updateUser = async (id, access_token) => {
+    const res = await Axios.get(
+        `${process.env.REACT_APP_API_URL_BACKEND}/user/details/${id}`,
+        { headers: { token: `Bearer ${access_token}` } }
+    );
+    return res.data;
+};
+
+

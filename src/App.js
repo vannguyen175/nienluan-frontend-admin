@@ -1,19 +1,19 @@
 import React from "react";
-import axios from "axios";
+// import axios from "axios";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { routes } from "./routes";
-import { useQuery } from "@tanstack/react-query";
+// import { useQuery } from "@tanstack/react-query";
 
 export function App() {
-    const fetchApi = async () => {
-        const res = await axios.get(
-            `${process.env.REACT_APP_API_URL_BACKEND}/product/getAll/dien-thoai`
-        );
-        return res.data;
-    };
+    // const fetchApi = async () => {
+    //     const res = await axios.get(
+    //         `${process.env.REACT_APP_API_URL_BACKEND}/product/getAll/dien-thoai`
+    //     );
+    //     return res.data;
+    // };
 
-    const query = useQuery({ queryKey: ["todos"], queryFn: fetchApi });
-    console.log('query.data: ', query.data);
+    // const query = useQuery({ queryKey: ["todos"], queryFn: fetchApi });
+    // console.log('query.data: ', query.data);
     return (
         <div>
             <Router>

@@ -5,24 +5,45 @@
     border: 1px solid rgb(0, 0, 0);
     border-radius: 8px;
     width: fit-content;
-    height: 50px;
+    height: fit-content;
     padding: 0 5px;
     margin: 20px;
     margin-bottom: 0px;
 
-    input {
-        padding: 5px 10px;
-        height: 35px;
+    textarea {
+        height: 130px;
+    }
+
+    .input {
         border: none;
+        padding: 5px 10px;
+        margin: -5px 0 5px 0;
+        height: 35px;
         outline: none;
         z-index: 2;
         background-color: transparent;
+
+        &:placeholder-shown {
+            margin-top: 15px;
+        }
+
+        &:placeholder-shown ~ .text {
+            position: absolute;
+            transition: 0.2s ease;
+            color: var(--main-color);
+            //font-weight: 500;
+            left: 10px;
+            //top: 0px;
+            padding-top: 0px;
+            padding-bottom: 3px;
+        }
     }
 
     .text {
         position: absolute;
-        margin-left: 5px;
-        font-size: 500;
+        margin: 5px;
+        margin-bottom: 0px;
+        //font-size: 1rem;
         user-select: none;
         z-index: 1;
     }
@@ -37,33 +58,39 @@
     }
 }
 
+//trong trạng thái focus
 .container:focus-within {
     border: 1.5px solid var(--main-color);
-    input {
-        margin-top: 30px;
+    padding: 0px 5px;
+    .input {
+        margin-top: 15px;
         border: none;
     }
     .text {
         transition: 0.2s ease;
         color: var(--main-color);
-        font-size: 0.7rem;
         font-weight: 700;
         left: 10px;
-        top: 5px;
+        top: 0px;
+        font-size: 0.7rem;
+        padding-top: 0px;
     }
 }
 
-input {
+//khi không có placeholder
+.input {
     &:not(:placeholder-shown) {
-        margin-top: 30px;
+        margin-top: 15px;
     }
 
     &:not(:placeholder-shown) ~ .text {
+        transition: 0.2s ease;
         color: var(--main-color);
         font-size: 0.7rem;
         font-weight: 700;
+        top: 1px;
         left: 10px;
-        top: 5px;
+        bottom: 0px;
     }
     &:not(:placeholder-shown) ~ .clear-input {
         display: flex;
