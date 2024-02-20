@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import style from "./Input.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const cx = classNames.bind(style);
 
@@ -16,10 +16,14 @@ function Input({
     textarea,
     ...props
 }) {
+    const [valueInput, setValueInput] = useState(value)
     let Comp = "input";
     const inputRef = useRef();
     const handleClick = () => {
-        inputRef.current.value = "";
+        //inputRef.current.value = "";
+        console.log('valueInput', valueInput);
+        setValueInput('');
+        console.log('inputRef.current.value', inputRef.current.value)
     };
     if (textarea) {
         Comp = textarea;
@@ -32,7 +36,7 @@ function Input({
                     ref={inputRef}
                     type={type}
                     placeholder="&nbsp;"
-                    defaultValue={value}
+                    defaultValue={valueInput}
                     onChange={props.handleOnChange}
                     {...(textarea ? { rows: 4, cols: 48 } : {})}
                 />

@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import style from "./UserLayouts.module.scss";
+import style from "./adminLayout.module.scss";
 import DropdownMenu from "~/components/DropdownMenu";
 import Button from "~/components/Button";
 import * as UserService from "~/service/UserService";
@@ -46,21 +46,6 @@ const ActionsUnLogin = [
     {
         name: "Đăng ký",
         to: "/register",
-    },
-];
-
-const ActionUserLogin = [
-    {
-        name: "Thông tin tài khoản",
-        to: "/profile",
-    },
-    {
-        name: "Đơn mua",
-        to: "/products",
-    },
-    {
-        name: "Đơn bán",
-        to: "/products",
     },
 ];
 
@@ -143,11 +128,7 @@ function Header() {
                         <DropdownMenu
                             icon={faUser}
                             title={name}
-                            listActions={
-                                localStorage.getItem("isAdmin") === "true"
-                                    ? ActionAdminLogin
-                                    : ActionUserLogin
-                            }
+                            listActions={ActionAdminLogin}
                             border="none"
                         />
                         <Tooltip title={'<p class="tippy">Đăng xuất</p>'}>

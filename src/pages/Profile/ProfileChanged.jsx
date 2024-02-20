@@ -18,7 +18,7 @@ function Profilechanged(props) {
     })
 
     const handleOnchangeName = (e) => {
-        console.log('value: ', e.target.value);
+        //console.log('value: ', profile);
         setProfile(e.target.value)
     }
 

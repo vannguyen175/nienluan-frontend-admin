@@ -39,4 +39,12 @@ export const updateUser = async (id, access_token) => {
     return res.data;
 };
 
+export const getAllUsers = async (access_token) => {
+    const res = await Axios.get(
+        `${process.env.REACT_APP_API_URL_BACKEND}/user/getAll`,
+        { headers: { token: `Bearer ${access_token}` } }
+    );
+    return res.data;
+};
+
 

@@ -2,32 +2,34 @@ import React from "react";
 // import axios from "axios";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { routes } from "./routes";
+import NotFoundPage from "~/pages/NotFoundPage/NotFoundPage";
+
 // import { useQuery } from "@tanstack/react-query";
 
 export function App() {
-    // const fetchApi = async () => {
-    //     const res = await axios.get(
-    //         `${process.env.REACT_APP_API_URL_BACKEND}/product/getAll/dien-thoai`
-    //     );
-    //     return res.data;
-    // };
+    const getisAdminString = localStorage.getItem("isAdmin");
+    const isAdmin = getisAdminString?.toLowerCase?.() === "true"; //convert string to boolean
 
-    // const query = useQuery({ queryKey: ["todos"], queryFn: fetchApi });
-    // console.log('query.data: ', query.data);
     return (
         <div>
             <Router>
                 <Routes>
                     {routes.map((route, index) => {
-                        const Page = route.page;
+                        let Page = route.page;
                         const Layout = route.layout;
+                        const isCheckAuth =
+                            !route.isPrivate || Boolean(isAdmin);
                         return (
                             <Route
                                 key={index}
-                                path={route.path}
+                                path={isCheckAuth === true ? route.path : "*"}
                                 element={
                                     <Layout>
-                                        <Page />
+                                        {isCheckAuth === true ? (
+                                            <Page />
+                                        ) : (
+                                            <NotFoundPage />
+                                        )}
                                     </Layout>
                                 }
                             />

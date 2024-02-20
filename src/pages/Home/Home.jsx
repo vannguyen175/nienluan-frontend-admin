@@ -2,7 +2,7 @@ import style from "./UserHome.module.scss";
 import classNames from "classnames/bind";
 // import { Container, Row, Col } from "react-bootstrap";
 import CategoryButton from "~/components/CategoryButton";
-import CardProduct from "~/components/CardProduct"
+import CardProduct from "~/components/CardProduct";
 import Button from "~/components/Button";
 
 const cx = classNames.bind(style);
@@ -10,30 +10,31 @@ const cx = classNames.bind(style);
 function UserHome() {
     const categories = [
         {
-            to: "#",
+            to: "san-pham/noi-that",
             src: "assets/images/anh-test.jpg",
             alt: "danh muc",
             type: "Nội thất",
         },
         {
-            to: "#",
+            to: "san-pham/xe-co",
             src: "assets/images/anh-test.jpg",
             alt: "danh muc",
             type: "Xe cộ",
         },
         {
-            to: "#",
+            to: "san-pham/do-dien-tu",
             src: "assets/images/anh-test.jpg",
             alt: "danh muc",
             type: "Đồ điện tử",
         },
         {
-            to: "#",
+            to: "san-pham/thu-cung",
             src: "assets/images/anh-test.jpg",
             alt: "danh muc",
-            type: "Thể thao",
+            type: "Thú cưng",
         },
     ];
+
     return (
         <div className={cx("container")}>
             <section
@@ -67,15 +68,15 @@ function UserHome() {
 
             <section className={cx("inner-content")}>
                 <p className={cx("title")}>Tin đăng mới</p>
-                <div style={{ display: "flex", flexWrap: 'wrap' }}>
-                <CardProduct  />
-                <CardProduct  />
-                <CardProduct  />
-                <CardProduct  />
-                <CardProduct  />
-                <CardProduct  />
-                <CardProduct  />
-                <CardProduct  />
+                <div style={{ display: "flex", flexWrap: "wrap" }}>
+                    <CardProduct />
+                    <CardProduct />
+                    <CardProduct />
+                    <CardProduct />
+                    <CardProduct />
+                    <CardProduct />
+                    <CardProduct />
+                    <CardProduct />
                 </div>
             </section>
         </div>

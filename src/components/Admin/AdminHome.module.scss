@@ -1,0 +1,20 @@
+.table {
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 6px 24px 0px,
+        rgba(0, 0, 0, 0.1) 0px 0px 0px 1px;
+    thead {
+        background-color: var(--light-color) !important;
+    }
+}
+
+.name {
+    color: var(--main-color);
+    padding: 0px 1px;
+
+    &:hover {
+        font-weight: 700;
+        cursor: pointer;
+        padding: 0px;
+    }
+}

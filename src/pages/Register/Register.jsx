@@ -3,11 +3,11 @@ import classNames from "classnames/bind";
 import style from "./Register.module.scss";
 import Input from "~/components/Input";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as UserService from "../../service/UserService";
 
 import { useMutationHook } from "../../hooks/useMutaionHook";
-//import * as Message from "../../components/Message/Message";
+import { toast } from "react-toastify";
 
 const cx = classNames.bind(style);
 
@@ -38,20 +38,22 @@ function Register() {
         setPhone(e.target.value);
     };
 
+    useEffect(() => {
+        if (data?.status === "SUCCESS") {
+            toast.success("Đăng ký tài khoản thành công!");
+            setTimeout(() => {
+                navigate("/login");
+            }, 1000);
+        }
+    }, [data, navigate]);
+
     const onsubmit = (e) => {
-        mutation.mutate({ name, email, password, confirmPassword, phone });
+        //console.log('inputRef.current.value', inputRef.current.value);
+        //mutation.mutate({ name, email, password, confirmPassword, phone });
         e.preventDefault();
     };
     return (
         <div>
-            {/* {data?.status === "SUCCESS" ? (
-                <>
-                    <Message message="Đăng nhập thành công!" />
-                    {setTimeout(() => navigate("/login"), 1000)}
-                </>
-            ) : (
-                ""
-            )} */}
             <div
                 className={cx(
                     "inner-content",

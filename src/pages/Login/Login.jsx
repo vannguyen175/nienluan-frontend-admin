@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 
-import * as UserService from "../../service/UserService";
-import { useMutationHook } from "../../hooks/useMutaionHook";
+import * as UserService from "~/service/UserService";
+import { useMutationHook } from "~/hooks/useMutaionHook";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
  
@@ -43,6 +43,7 @@ function Login() {
             localStorage.setItem("access_token", data?.access_token);
             const decoded = jwtDecode(data?.access_token);
             localStorage.setItem("id_user", decoded?.id);
+            localStorage.setItem("isAdmin", decoded?.isAdmin);
             setTimeout(() => {
                 navigate('/');
             }, 1000)

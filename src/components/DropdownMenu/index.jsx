@@ -3,7 +3,6 @@ import classNames from "classnames/bind";
 import style from "./DropdownMenu.module.scss";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 function DropdownMenu({ title, listActions, width = "120px", border, icon }) {
     const cx = classNames.bind(style);
