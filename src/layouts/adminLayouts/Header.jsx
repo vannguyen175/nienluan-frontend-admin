@@ -115,6 +115,7 @@ function Header() {
                             listActions={ActionsUnLogin}
                             width="300px"
                             border="none"
+                            icon={faUser}
                         />
 
                         <Button children="Đăng nhập" to="/login" button />

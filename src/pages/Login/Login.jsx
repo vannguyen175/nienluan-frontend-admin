@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import style from "./Login.module.scss";
 import Input from "~/components/Input";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { jwtDecode } from "jwt-decode";
 
 import * as UserService from "~/service/UserService";
@@ -16,24 +16,17 @@ const cx = classNames.bind(style);
 
 function Login() {
     const navigate = useNavigate();
-    //const dispatch = useDispatch();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
 
     const mutation = useMutationHook((data) => UserService.loginUser(data));
     const { data } = mutation;
 
-    //xu ly khi nguoi dung nhap du lieu vao input
-    const handleOnchangeEmail = (e) => {
-        setEmail(e.target.value);
-    };
-    const handleOnchangePassword = (e) => {
-        setPassword(e.target.value);
-    };
-
     //xu ly khi nguoi dung nhan submit
     const onsubmit = (e) => {
         e.preventDefault();
+        const email = emailRef.current.value;
+        const password = passwordRef.current.value;
         mutation.mutate({ email, password });
     };
 
@@ -44,6 +37,7 @@ function Login() {
             const decoded = jwtDecode(data?.access_token);
             localStorage.setItem("id_user", decoded?.id);
             localStorage.setItem("isAdmin", decoded?.isAdmin);
+            localStorage.setItem("avatar", decoded?.avatar || 'assets/images/user-avatar.jpg');
             setTimeout(() => {
                 navigate('/');
             }, 1000)
@@ -69,14 +63,13 @@ function Login() {
                     )}
                     <Input
                         text="Email"
-                        value={email}
-                        handleOnChange={handleOnchangeEmail}
+                        type="email" name="email" autocomplete="on"
+                        innerRef={emailRef}
                     />
                     <Input
                         text="Mật khẩu"
-                        type="password"
-                        value={password}
-                        handleOnChange={handleOnchangePassword}
+                        type="password" name="password" 
+                        innerRef={passwordRef}
                     />
 
                     <a className={cx("forgot-password")} href="/">

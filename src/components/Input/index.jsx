@@ -1,56 +1,73 @@
 //props = {text, placeholder, name, ...props}
 import classNames from "classnames/bind";
 import style from "./Input.module.scss";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { useRef, useState } from "react";
+import { faXmarkCircle } from "@fortawesome/free-regular-svg-icons";
 
 const cx = classNames.bind(style);
 
-function Input({
+function InputComp({
     error,
     text,
     type,
     value,
+    innerRef,
+    avatar,
     placeholder = "",
     textarea,
+    readOnly,
     ...props
 }) {
-    const [valueInput, setValueInput] = useState(value)
+    const [valueInput, setValueInput] = useState("");
+    useEffect(() => {
+        setValueInput(value)
+    },[value])
+    
     let Comp = "input";
-    const inputRef = useRef();
-    const handleClick = () => {
-        //inputRef.current.value = "";
-        console.log('valueInput', valueInput);
-        setValueInput('');
-        console.log('inputRef.current.value', inputRef.current.value)
-    };
     if (textarea) {
-        Comp = textarea;
+        Comp = "textarea";
     }
+
+    const handleChange = (event) => {
+        setValueInput(event.target.value);
+    };
+
+    const handleClick = () => {
+        setValueInput("");
+    };
+    if (avatar) {
+        console.log('valueInput', valueInput)
+    }
+    
     return (
         <div>
             <span className={cx("container")}>
                 <Comp
                     className={cx("input")}
-                    ref={inputRef}
                     type={type}
-                    placeholder="&nbsp;"
-                    defaultValue={valueInput}
-                    onChange={props.handleOnChange}
-                    {...(textarea ? { rows: 4, cols: 48 } : {})}
+                    placeholder=""
+                    ref={innerRef}
+                    value={valueInput || ''}
+                    onChange={handleChange}
+                    autoComplete="on"
+                    readOnly={readOnly}
                 />
-                <label className={cx("text")}>{text}</label>
-
+              
                 <FontAwesomeIcon
                     className={cx("clear-input")}
                     onClick={handleClick}
-                    icon={faXmark}
+                    icon={faXmarkCircle}
                 />
+                <label className={cx("text")}>{text}</label>
+                {avatar ? (
+                    
+                    <img src={valueInput} alt="avatar" />
+                ) : ""}
             </span>
             {error ? <div className={cx("show-error")}>{error}</div> : ""}
         </div>
     );
 }
 
-export default Input;
+export default InputComp;

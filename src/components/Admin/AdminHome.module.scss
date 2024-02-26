@@ -18,3 +18,38 @@
         padding: 0px;
     }
 }
+
+.update-modal {
+    width: 600px;
+    input,
+    textarea {
+        width: 550px;
+    }
+}
+
+// .select-role {
+//     position: relative;
+//     border: 1px solid var(--main-color);
+//     border-radius: 8px;
+//     width: 560px;
+//     padding: 10px;
+//     margin-left: 20px;
+//     height: 50px;
+//     span {
+//         position: absolute;
+//         float: left;
+
+//     }
+//     select {
+//         width: 540px;
+//         padding: 10px;
+//         border: none;
+//         outline: none;
+//     }
+// }
+
+.ant-upload {
+    .ant-upload-list-item-name {
+        display: none !important;
+    }
+}

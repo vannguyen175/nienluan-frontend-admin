@@ -55,6 +55,16 @@ p {
     border: none;
 }
 
+/* .ant-input {
+    background-color: aquamarine;
+    &:placeholder-shown {
+      background-color: red;
+    }
+    &:not(:placeholder-shown) {
+      background-color: rgb(89, 205, 50);
+    }
+  } */
+
 #button-dropdown {
     padding: 5px 10px;
     margin: 0px 5px;
@@ -77,7 +87,7 @@ p {
         display: block;
         height: 40px;
         text-align: center;
-        padding-top:8px;
+        padding-top: 8px;
         width: 200px;
         &:hover {
             background-color: var(--light-color);
@@ -95,13 +105,20 @@ svg {
     font-size: 1.2rem;
 }
 
+.avatar-preview {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--main-color);
+}
+
 .tippy {
     background-color: var(--light-color);
     color: black;
     padding: 5px 10px;
     border-radius: 5px;
 }
-
 
 .animated {
     -webkit-animation-duration: 0.3s;

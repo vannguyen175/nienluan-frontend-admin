@@ -49,7 +49,7 @@ function Register() {
 
     const onsubmit = (e) => {
         //console.log('inputRef.current.value', inputRef.current.value);
-        //mutation.mutate({ name, email, password, confirmPassword, phone });
+        mutation.mutate({ name, email, password, confirmPassword, phone });
         e.preventDefault();
     };
     return (

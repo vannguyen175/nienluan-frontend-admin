@@ -29,7 +29,7 @@ function Profile() {
                 isAdmin: data.result.isAdmin || "Người dùng / Người bán hàng",
                 phone: data.result.phone || "Chưa có",
                 adsress: data.result.adsress || "Chưa có",
-                avatar: data.result.avatar || "Chưa có",
+                avatar: data.result.avatar,
                 rating: data.result.rating || "Chưa có",
             });
         });
@@ -46,7 +46,7 @@ function Profile() {
                     <div className={cx("info-user")}>
                         <div>
                             <img
-                                src="assets/images/danh-muc-pho-bien-3.jpg"
+                                src={userProfile.avatar}
                                 alt="anh-dai-dien"
                             />
                             <span>

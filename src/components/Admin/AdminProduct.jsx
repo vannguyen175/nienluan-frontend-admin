@@ -2,7 +2,7 @@ import { Table } from "antd";
 import style from "./AdminHome.module.scss";
 import classNames from "classnames/bind";
 
-const cx = classNames.bind(style)
+const cx = classNames.bind(style);
 
 const columns = [
     {

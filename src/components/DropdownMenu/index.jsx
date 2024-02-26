@@ -4,8 +4,16 @@ import style from "./DropdownMenu.module.scss";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function DropdownMenu({ title, listActions, width = "120px", border, icon }) {
+function DropdownMenu({
+    title,
+    listActions,
+    width = "120px",
+    border,
+    icon,
+    avatar,
+}) {
     const cx = classNames.bind(style);
+
     return (
         <Dropdown>
             <Dropdown.Toggle
@@ -19,7 +27,15 @@ function DropdownMenu({ title, listActions, width = "120px", border, icon }) {
                     alignItems: "center",
                 }}
             >
-                {icon ? <FontAwesomeIcon icon={icon} /> : ""}
+                {icon && <FontAwesomeIcon icon={icon} />}
+                {avatar && (
+                    <img
+                        src={avatar}
+                        alt="avatar"
+                        className="avatar-preview"
+                        style={{ width: '40px', height: '40px' }}
+                    />
+                )}
                 &nbsp; &nbsp;
                 {title}
             </Dropdown.Toggle>

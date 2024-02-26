@@ -92,6 +92,7 @@ function Header() {
         await localStorage.clear("access_token");
         navigate("/");
     };
+
     return (
         <Container fluid className={cx("header")}>
             <Row>
@@ -126,6 +127,7 @@ function Header() {
                         style={{ marginTop: "-8px" }}
                     >
                         <DropdownMenu
+                            icon={faUser}
                             title="Tiện ích"
                             listActions={ActionsUnLogin}
                             width="300px"
@@ -141,7 +143,7 @@ function Header() {
                         style={{ marginTop: "-8px" }}
                     >
                         <DropdownMenu
-                            icon={faUser}
+                             icon={faUser}
                             title={name}
                             listActions={
                                 localStorage.getItem("isAdmin") === "true"
