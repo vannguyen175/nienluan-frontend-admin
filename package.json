@@ -29,6 +29,7 @@
         "react-app-rewired": "^2.2.1",
         "react-bootstrap": "^2.9.2",
         "react-dom": "^18.2.0",
+        "react-highlight-words": "^0.20.0",
         "react-query": "^3.39.3",
         "react-redux": "^9.0.4",
         "react-router-dom": "^6.21.1",
