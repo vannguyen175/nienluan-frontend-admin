@@ -55,6 +55,10 @@ const ActionUserLogin = [
         to: "/profile",
     },
     {
+        name: "Đăng tải sản phẩm",
+        to: "/dang-tin",
+    },
+    {
         name: "Đơn mua",
         to: "/products",
     },
@@ -70,9 +74,14 @@ const ActionAdminLogin = [
         to: "/profile",
     },
     {
+        name: "Đăng tải sản phẩm",
+        to: "/dang-tin",
+    },
+    {
         name: "Quản lý hệ thống",
         to: "/admin",
     },
+
 ];
 
 function Header() {

@@ -11,6 +11,7 @@ import Profile from "~/pages/Profile/Profile";
 import Login from "~/pages/Login/Login"
 import Register from "~/pages/Register/Register"
 import AdminHomePage from "../pages/Admin/Home";
+import PostingProduct from "../pages/PostingProduct/PostingProduct";
 
 export const routes = [
     {
@@ -42,6 +43,11 @@ export const routes = [
         path: "/register",
         page: Register,
         layout: Fragment
+    },
+    {
+        path: "/dang-tin",
+        page: PostingProduct,
+        layout: UserLayout
     },
 
     {

@@ -10,26 +10,27 @@ import { ToastContainer, Flip } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ConfigProvider } from "antd";
 
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 // Create a client
 const queryClient = new QueryClient();
 root.render(
-    <QueryClientProvider client={queryClient}>
-        {/* <Provider store={store}> */}
-        {/* <Provider> */}
-        <ConfigProvider theme={{ token: { colorPrimary: "#d78d3a" } }}>
-            <ToastContainer
-                hideProgressBar
-                position="top-center"
-                transition={Flip}
-                autoClose={2000}
-            />
-            <App />
-        </ConfigProvider>
+	<QueryClientProvider client={queryClient}>
+		{/* <Provider store={store}> */}
+		{/* <Provider> */}
+		<ConfigProvider theme={{ token: { colorPrimary: "#d78d3a" } }}>
+			<ToastContainer
+				hideProgressBar
+				position="top-center"
+				transition={Flip}
+				autoClose={2000}
+			/>
+			<App />
+		</ConfigProvider>
 
-        {/* </Provider> */}
-        <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+		{/* </Provider> */}
+		<ReactQueryDevtools initialIsOpen={false} />
+	</QueryClientProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

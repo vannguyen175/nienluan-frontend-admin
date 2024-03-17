@@ -27,16 +27,8 @@ import Highlighter from "react-highlight-words";
 
 const cx = classNames.bind(style);
 
-// rowSelection object indicates the need for row selection
-const rowSelection = {
-	getCheckboxProps: (record) => ({
-		disabled: record.name === "Disabled User",
-		// Column configuration not to be checked
-		name: record.name,
-	}),
-};
-
 function AdminUser() {
+	let dataSubmit = {};
 	const navigate = useNavigate();
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [createOpenModal, setCreateOpenModal] = useState(false); //open modal
@@ -108,7 +100,6 @@ function AdminUser() {
 	});
 
 	const IDRef = useRef("");
-	const isAdminRef = useRef("");
 	const nameRef = useRef("");
 	const emailRef = useRef("");
 	const passwordRef = useRef("");
@@ -218,7 +209,6 @@ function AdminUser() {
 
 	const mutationCreate = useMutationHook((data) => {
 		const { ...rests } = data;
-		console.log("{ ...rests }", { ...rests });
 		const res = UserService.registerUser({ ...rests }.data);
 		return res;
 	});
@@ -243,7 +233,6 @@ function AdminUser() {
 
 	//xu ly modal khi nguoi dung click submit Create
 	useEffect(() => {
-		console.log("dataCreate", dataCreate);
 		if (dataCreate?.status === "SUCCESS") {
 			toast.success("Tạo tài khoản thành công!");
 			setTimeout(() => {
@@ -292,12 +281,12 @@ function AdminUser() {
 	});
 
 	const handleCreate = (e) => {
-		const dataSubmit = {
+		dataSubmit = {
+			...dataSubmit,
 			name: nameRef.current.value,
 			email: emailRef.current.value,
 			password: passwordRef.current.value,
 			confirmPassword: passwordConfirmedRef.current.value,
-			isAdmin: isAdminRef.current.value === "Admin" ? "true" : false,
 			phone: phoneRef.current.value,
 			address: addressRef.current.value,
 			avatar: avatar,
@@ -310,12 +299,12 @@ function AdminUser() {
 
 	const handleUpdate = (e) => {
 		//setIsModalOpen(false);
-		const dataSubmit = {
+		dataSubmit = {
+			...dataSubmit,
 			name: nameRef.current.value,
 			email: emailRef.current.value,
 			password: passwordRef.current.value,
 			confirmPassword: passwordConfirmedRef.current.value,
-			isAdmin: isAdminRef.current.value === "Admin" ? "true" : false,
 			phone: phoneRef.current.value,
 			address: addressRef.current.value,
 			avatar: avatar,
@@ -351,6 +340,14 @@ function AdminUser() {
 		setAvatar(file.preview);
 	};
 
+	const handleChangeRole = (e) => {
+		if (e === "Admin") {
+			dataSubmit = { ...dataSubmit, isAdmin: true };
+		} else {
+			dataSubmit = { ...dataSubmit, isAdmin: false };
+		}
+	};
+
 	return (
 		<div>
 			<div className="title">Quản lý tài khoản</div>
@@ -364,7 +361,6 @@ function AdminUser() {
 			</Button>
 			<div>
 				<Loading isLoading={isLoadingShow}>
-				
 					<Table
 						columns={columns}
 						dataSource={UsersData}
@@ -431,7 +427,8 @@ function AdminUser() {
 					<form className={cx("update-modal")}>
 						<Input text="ID" value={detailUser.id} innerRef={IDRef} readOnly />
 						<Select
-							innerRef={isAdminRef}
+							onChange={handleChangeRole}
+							name="Vai trò"
 							value={detailUser.isAdmin}
 							options={["Admin", "User"]}
 						/>
@@ -497,6 +494,7 @@ function AdminUser() {
 					Bạn có muốn xóa {name}?
 				</Modal>
 
+				{/* Tạo tài khoản */}
 				<Modal
 					title="Tạo tài khoản"
 					open={createOpenModal}
@@ -512,7 +510,11 @@ function AdminUser() {
 					]}
 				>
 					<form className={cx("update-modal")}>
-						<Select innerRef={isAdminRef} value="User" options={["Admin", "User"]} />
+						<Select
+							onChange={handleChangeRole}
+							value="User"
+							options={["Admin", "User"]}
+						/>
 						<Input text="Tên tài khoản" innerRef={nameRef} />
 						<Input text="Email" innerRef={emailRef} />
 						<Input text="Mật khẩu" type="password" innerRef={passwordRef} />

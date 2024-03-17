@@ -5,7 +5,7 @@
     border: 1px solid rgb(0, 0, 0);
     border-radius: 8px;
     min-width: 200px;
-    width: fit-content;
+    width:94%;
     height: fit-content;
     padding: 0 5px;
     margin: 20px;
@@ -14,11 +14,12 @@
         border: none;
         //padding: 5px 10px;
         margin: 25px 0 5px 5px;
-        width: 90%;
+        width: 98%;
         height: 35px;
         outline: none;
         z-index: 2;
         background-color: transparent;
+        cursor: pointer;
     }
 
     .text {
@@ -26,7 +27,7 @@
         color: var(--main-color);
         font-weight: 700;
         left: 15px;
-        top: 0px;
+        top: -3px;
         font-size: 0.7rem;
         padding-top: 10px;
     }

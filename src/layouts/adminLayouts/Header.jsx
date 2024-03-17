@@ -55,6 +55,10 @@ const ActionAdminLogin = [
         to: "/profile",
     },
     {
+        name: "Đăng tải sản phẩm",
+        to: "/dang-tin",
+    },
+    {
         name: "Quản lý hệ thống",
         to: "/admin",
     },
