@@ -1,4 +1,4 @@
-export const loaiSanPham = [
+export const loaiBanGhe = [
 	"Ghế đẩu",
 	"Ghế dựa",
 	"Ghế văn phòng",
@@ -6,6 +6,15 @@ export const loaiSanPham = [
 	"Sofa",
 	"Bàn ăn",
 	"Bàn làm việc",
+	"Khác",
+];
+export const loaiGiuong = [
+	"Giường đơn",
+	"Giường đôi",
+	"Tủ quần áo",
+	"Tủ giày dép",
+	"Tủ sách",
+	"Tủ kệ trưng bày",
 	"Khác",
 ];
 export const chatLieu = ["Gỗ", "Nhựa", "Sắt", "Inox", "Đá", "Kính", "Mây", "Vải", "Khác"];

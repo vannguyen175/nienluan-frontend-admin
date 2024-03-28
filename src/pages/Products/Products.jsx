@@ -6,64 +6,74 @@ import { useQuery } from "@tanstack/react-query";
 import * as ProductService from "~/service/ProductService";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { convertToSlug } from "~/utils";
 
 const cx = classNames.bind(style);
 
 function Products() {
-    const { slug_category } = useParams();
-    let subCateChosen = "";
-    const [subCategory, setSubCategory] = useState([]);
-    const [categoryName, setCategoryName] = useState("");
+	const { slug_category } = useParams();
+	const [subCateChosen, setSubCateChosen] = useState();
 
-    //get SubCategory from Category param url
-    useEffect(() => {
-        ProductService.getSubCategory(slug_category).then((data) => {
-            setSubCategory(data.subCategory);
-            setCategoryName(data.category.name);
-        });
-    }, [slug_category]);
+	const getSubCategory = async () => {
+		const res = await ProductService.getSubCategory(slug_category);
+		setSubCateChosen(res.subCategory[0].name);
+		return res.subCategory;
+	};
+	const getProductsBySubCate = async () => {
+		const res = await ProductService.getAllProductsBySubCate(convertToSlug(subCateChosen));
+		return res.data;
+	};
 
-    const fetchAllProducts = async () => {
-        const res = await ProductService.getAllProducts(subCateChosen);
-        return res;
-    };
+	//lấy thông tin sản phẩm khi vừa truy cập hoặc reload trang
+	const querySubCategory = useQuery({ queryKey: ["sub-category"], queryFn: getSubCategory });
+	const { data: subCategory } = querySubCategory;
 
-    const handleShowProducts = (slug_subCategory) => {
-        subCateChosen = slug_subCategory;
-        refetch();
-    };
+	//lấy thông tin sản phẩm khi vừa truy cập hoặc reload trang
+	const queryProduct = useQuery({
+		queryKey: ["product"],
+		queryFn: getProductsBySubCate,
+		refetchOnWindowFocus: false,
+		enabled: false,
+	});
+	const { data: products, refetch: refetchProduct } = queryProduct;
 
-    const { data: products, refetch } = useQuery({
-        queryKey: ["product"],
-        queryFn: fetchAllProducts,
-        refetchOnWindowFocus: false,
-        enabled: false,
-    });
-    console.log("products data: ", products);
+	//thay đổi subCateChosen mỗi khi user nhấn chọn danh mục phụ
+	const handleShowProducts = (subCate) => {
+		setSubCateChosen(subCate.name);
+	};
 
-    return (
-        <div className={cx("container")}>
-            <div className={cx("shop-category", "inner-content")}>
-                <p className={cx("title")}>{categoryName}</p>
-                {subCategory.map((subCate, index) => (
-                    <Button
-                        key={index}
-                        onClick={() => handleShowProducts(subCate.slug)}
-                    >
-                        {subCate.name}
-                    </Button>
-                ))}
-            </div>
-            <div className={cx("shop-new", "inner-content")}>
-                <p className={cx("title")}>Tin đăng mới</p>
-                <div style={{ display: "flex", flexWrap: "wrap" }}>
-                    <CardProduct type="horizontal" />
-                    <CardProduct type="horizontal" />
-                    <CardProduct />
-                </div>
-            </div>
-        </div>
-    );
+	//mỗi lần subCateChosen thay đổi, getProductsBySubCate sẽ được refetch để lấy data products
+	useEffect(() => {
+		if (subCateChosen) {
+			refetchProduct();
+		}
+	}, [subCateChosen, refetchProduct]);
+
+	return (
+		<div className={cx("container")}>
+			<div className={cx("shop-category", "inner-content")}>
+				<p className={cx("title")}>categoryName</p>
+				{subCategory?.map((subCate, index) => (
+					<Button
+						key={index}
+						chosenBtn={subCateChosen === subCate.name}
+						onClick={() => handleShowProducts(subCate)}
+					>
+						{subCate.name}
+					</Button>
+				))}
+			</div>
+			<div className={cx("shop-new", "inner-content")}>
+				<p className={cx("title")}>Tin đăng mới</p>
+				<div style={{ display: "flex", flexWrap: "wrap" }}>
+					{products &&
+						products?.map((product, key) => (
+							<CardProduct key={key} product={product} type="horizontal" />
+						))}
+				</div>
+			</div>
+		</div>
+	);
 }
 
 export default Products;

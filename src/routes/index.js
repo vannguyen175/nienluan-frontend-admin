@@ -25,7 +25,7 @@ export const routes = [
         layout: UserLayout
     },
     {
-        path: "/detail-product",
+        path: "/detail-product/:id",
         page: DetailProduct,
         layout: UserLayout
     },

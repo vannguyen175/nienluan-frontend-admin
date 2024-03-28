@@ -9,6 +9,7 @@ function Button({
     to,
     href,
     primary,
+    chosenBtn,
     children,
     onClick,
     button,
@@ -27,6 +28,7 @@ function Button({
         Comp = "a";
     }
     const classes = cx("wrapper", {
+        chosenBtn,
         primary,
         button
     });

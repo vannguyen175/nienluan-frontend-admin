@@ -270,9 +270,8 @@ function AdminUser() {
 	//lấy thông tin tài khoản khi vừa truy cập hoặc reload trang
 	const queryUsers = useQuery({ queryKey: ["users"], queryFn: getAllUsers });
 	const { data: users, isLoading: isLoadingShow } = queryUsers;
-
 	//show thông tin bảng
-	const UsersData = users?.data.map((user) => {
+	const UsersData = users?.data?.map((user) => {
 		return {
 			...user,
 			isAdmin: user.isAdmin ? "Admin" : "User",

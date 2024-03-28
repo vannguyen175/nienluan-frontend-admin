@@ -1,5 +1,6 @@
 import Axios from "axios";
 
+//lấy products theo danh mục phụ + chỉ products đã duyệt
 export const getAllProductsBySubCate = async (slug_subCate) => {
 	const res = await Axios.get(
 		`${process.env.REACT_APP_API_URL_BACKEND}/product/getAll/${slug_subCate}`
@@ -36,7 +37,13 @@ export const updateProduct = async ( id,data) => {
 	return res.data;
 };
 
+//Lấy products theo filter (statePost): req.body
 export const getAllProducts = async (data) => {
 	const res = await Axios.post(`${process.env.REACT_APP_API_URL_BACKEND}/product/getAll`, data);
+	return res.data;
+};
+
+export const detailProduct = async (id) => {
+	const res = await Axios.get(`${process.env.REACT_APP_API_URL_BACKEND}/product/detail/${id}`);
 	return res.data;
 };
