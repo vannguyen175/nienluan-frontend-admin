@@ -45,7 +45,7 @@ function Profile() {
 				<Col xs={4} className={cx("inner-content")}>
 					<div className={cx("info-user")}>
 						<div>
-							<img src={userProfile.image} alt="anh-dai-dien" />
+							<img src={userProfile.avatar} alt="anh-dai-dien" />
 							<span>
 								<p className={cx("title")}>{userProfile.name}</p>
 								<p>Đánh giá: {userProfile.rating}</p>

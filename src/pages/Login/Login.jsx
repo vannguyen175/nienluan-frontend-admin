@@ -8,96 +8,93 @@ import { jwtDecode } from "jwt-decode";
 
 import * as UserService from "~/service/UserService";
 import { useMutationHook } from "~/hooks/useMutaionHook";
-import { useNavigate } from "react-router-dom";
-import { toast } from 'react-toastify';
- 
+import { useNavigate, useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const cx = classNames.bind(style);
 
 function Login() {
-    const navigate = useNavigate();
-    const emailRef = useRef(null);
-    const passwordRef = useRef(null);
+	const navigate = useNavigate();
+	const location = useLocation();
 
-    const mutation = useMutationHook((data) => UserService.loginUser(data));
-    const { data } = mutation;
+	const emailRef = useRef(null);
+	const passwordRef = useRef(null);
 
-    //xu ly khi nguoi dung nhan submit
-    const onsubmit = (e) => {
-        e.preventDefault();
-        const email = emailRef.current.value;
-        const password = passwordRef.current.value;
-        mutation.mutate({ email, password });
-    };
+	const mutation = useMutationHook((data) => UserService.loginUser(data));
+	const { data } = mutation;
 
-    useEffect(() => {
-        if (data?.status === "SUCCESS") {
-            toast.success("Đăng nhập thành công!");
-            localStorage.setItem("access_token", data?.access_token);
-            const decoded = jwtDecode(data?.access_token);
-            localStorage.setItem("id_user", decoded?.id);
-            localStorage.setItem("isAdmin", decoded?.isAdmin);
-            localStorage.setItem("avatar", decoded?.avatar || 'assets/images/user-avatar.jpg');
-            setTimeout(() => {
-                navigate('/');
-            }, 1000)
-        }   
-    }, [data, navigate]);
-    
-    return (
-        <div>
-            
-            <div
-                className={cx(
-                    "inner-content",
-                    "container",
-                    "animated",
-                    "fadeInDown",
-                    "box-shadow"
-                )}
-            >
-                <h2 className={cx("title")}>Đăng nhập</h2>
-                <form method="POST">
-                    {data?.status === "ERROR" && (
-                        <span style={{ color: "red" }}>{data?.message}</span>
-                    )}
-                    <Input
-                        text="Email"
-                        type="email" name="email" autocomplete="on"
-                        innerRef={emailRef}
-                    />
-                    <Input
-                        text="Mật khẩu"
-                        type="password" name="password" 
-                        innerRef={passwordRef}
-                    />
+	//xu ly khi nguoi dung nhan submit
+	const onsubmit = (e) => {
+		e.preventDefault();
+		const email = emailRef.current.value;
+		const password = passwordRef.current.value;
+		mutation.mutate({ email, password });
+	};
 
-                    <a className={cx("forgot-password")} href="/">
-                        Quên mật khẩu?
-                    </a>
+	useEffect(() => {
+		if (data?.status === "SUCCESS") {
+			toast.success("Đăng nhập thành công!");
+			localStorage.setItem("access_token", data?.access_token);
+			const decoded = jwtDecode(data?.access_token);
+			localStorage.setItem("id_user", decoded?.id);
+			localStorage.setItem("isAdmin", decoded?.isAdmin);
+			localStorage.setItem("avatar", decoded?.avatar || "assets/images/user-avatar.jpg");
+			if (location?.state) {
+				setTimeout(() => {
+					navigate(location?.state);
+				}, 1000);
+			} else {
+				setTimeout(() => {
+					navigate("/");
+				}, 1000);
+			}
+		}
+	}, [data, navigate, location?.state]);
 
-                    <Button
-                        primary
-                        styleBtn={{
-                            display: "flex",
-                            margin: "0px auto 20px auto",
-                            width: "420px",
-                            height: "50px",
-                            fontWeight: "500",
-                            fontSize: "1.2rem",
-                        }}
-                        onClick={onsubmit}
-                    >
-                        Đăng nhập
-                    </Button>
-                    <p className={cx("register-link")}>
-                        Chưa có tài khoản?{" "}
-                        <Link to="/register">Đăng ký tài khoản mới</Link>
-                    </p>
-                </form>
-            </div>
-        </div>
-    );
+	return (
+		<div>
+			<div
+				className={cx("inner-content", "container", "animated", "fadeInDown", "box-shadow")}
+			>
+				<h2 className={cx("title")}>Đăng nhập</h2>
+				<form method="POST">
+					{data?.status === "ERROR" && (
+						<span style={{ color: "red" }}>{data?.message}</span>
+					)}
+					<Input
+						text="Email"
+						type="email"
+						name="email"
+						autocomplete="on"
+						innerRef={emailRef}
+					/>
+					<Input text="Mật khẩu" type="password" name="password" innerRef={passwordRef} />
+
+					<a className={cx("forgot-password")} href="/">
+						Quên mật khẩu?
+					</a>
+
+					<Button
+						primary
+						styleBtn={{
+							display: "flex",
+							margin: "0px auto 20px auto",
+							width: "420px",
+							height: "50px",
+							fontWeight: "500",
+							fontSize: "1.2rem",
+						}}
+						onClick={onsubmit}
+					>
+						Đăng nhập
+					</Button>
+					<p className={cx("register-link")}>
+						Chưa có tài khoản? <Link to="/register">Đăng ký tài khoản mới</Link>
+					</p>
+				</form>
+			</div>
+		</div>
+	);
 }
 
 export default Login;

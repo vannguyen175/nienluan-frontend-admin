@@ -5,6 +5,8 @@ import NotFoundPage from "~/pages/NotFoundPage/NotFoundPage";
 import UserLayout from "~/layouts/userLayouts/userLayout";
 //import AdminLayout from "~/layouts/adminLayouts/adminLayout";
 import AdminLayout from "../layouts/adminLayouts/adminLayout";
+import NoneFooterLayout from "../layouts/noneFooterLayout/noneFooterLayout";
+import OrderProduct from "../pages/OrderProduct/OrderProduct";
 
 import { Fragment } from "react";
 import Profile from "~/pages/Profile/Profile";
@@ -28,6 +30,11 @@ export const routes = [
         path: "/detail-product/:id",
         page: DetailProduct,
         layout: UserLayout
+    },
+    {
+        path: "/dat-hang/:id",
+        page: OrderProduct,
+        layout: NoneFooterLayout
     },
     {
         path: "/profile",

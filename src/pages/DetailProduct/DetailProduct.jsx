@@ -17,14 +17,18 @@ import {
 import { Row, Col } from "react-bootstrap";
 import classNames from "classnames/bind";
 import style from "./DetailProduct.module.scss";
-import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import Button from  "~/components/Button"
+import Button from "~/components/Button";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
+import CardProduct from "~/components/CardProduct";
 
 const cx = classNames.bind(style);
 
 function DetailProduct() {
 	const { id } = useParams();
+	const idUser = localStorage.getItem("id_user");
+	const navigate = useNavigate();
+	const location = useLocation();
 	const Breadcrumbs = [
 		{
 			name: "Trang chủ",
@@ -49,6 +53,11 @@ function DetailProduct() {
 		return res.data;
 	};
 
+	const getProductWithSubcate = async () => {
+		const res = await ProductService.getAllProductsBySubCate(detail.subCategory);
+		return res.data;
+	};
+
 	//lấy thông tin sản phẩm khi vừa truy cập hoặc reload trang
 	const queryDetail = useQuery({ queryKey: ["product-detail"], queryFn: getDetailProduct });
 	const { data: detail } = queryDetail;
@@ -61,17 +70,35 @@ function DetailProduct() {
 		enabled: false,
 	});
 	const { data: seller, refetch: refetchSeller } = queryUser;
+
+	//lấy các sản phẩm cùng danh mục sau khi có subCategory từ getDetailProduct
+	const queryProductSubCate = useQuery({
+		queryKey: ["product-subCate"],
+		queryFn: getProductWithSubcate,
+		refetchOnWindowFocus: false,
+		enabled: false,
+	});
+	const { data: subCategoryProducts, refetch: refetchSubCategoryProducts } = queryProductSubCate;
 	useEffect(() => {
 		if (detail) {
 			refetchSeller();
+			refetchSubCategoryProducts();
 		}
-	}, [detail, refetchSeller]); //detail-product
+	}, [detail, refetchSeller, refetchSubCategoryProducts]); //detail-seller
+
+	const handleOrderNow = () => {
+		if (idUser) {
+			navigate(`/dat-hang/${id}`);
+		} else {
+			navigate("/login", { state: location.pathname });
+		}
+	};
 
 	return (
 		<div>
 			<Row style={{ display: "flex" }}>
 				<Col xs={8}>
-					<div className={cx("inner-content")}>
+					<div className={cx("inner-content", "left")}>
 						<Breadcrumb>
 							{Breadcrumbs.map((item, index) => (
 								<Breadcrumb.Item
@@ -102,21 +129,23 @@ function DetailProduct() {
 								<p className={cx("price")}>
 									{Intl.NumberFormat().format(detail?.price)}đ
 								</p>
-								<p className={cx("note")}>
-									<UserOutlined className={cx("icon")} />
-									{detail?.sellerName}
-								</p>
-								<p className={cx("note")}>
-									<EnvironmentOutlined className={cx("icon")} />
-									{detail?.address}
-								</p>
-								<p className={cx("note")}>
-									<ClockCircleOutlined className={cx("icon")} />
-									<ReactTimeAgo
-										date={Date.parse(detail?.createdAt)}
-										locale="vi-VN"
-									/>
-								</p>
+								<div style={{ display: "flex" }}>
+									<p className={cx("note")}>
+										<UserOutlined className={cx("icon")} />
+										{detail?.sellerName}
+									</p>
+									<p className={cx("note")}>
+										<ClockCircleOutlined className={cx("icon")} />
+										<ReactTimeAgo
+											date={Date.parse(detail?.createdAt)}
+											locale="vi-VN"
+										/>
+									</p>
+									<p className={cx("note")}>
+										<EnvironmentOutlined className={cx("icon")} />
+										{detail?.address}
+									</p>
+								</div>
 								<p className={cx("note")}>
 									<CheckOutlined className={cx("icon")} />
 									<span>Tin đã được kiểm duyệt</span>
@@ -145,8 +174,9 @@ function DetailProduct() {
 						</p>
 					</div>
 				</Col>
-				<Col className={cx("inner-content")}>
-					<hr style={{ marginTop: 43 }}/>
+				<Col className={cx("inner-content", "right")}>
+					<hr style={{ marginTop: 43 }} />
+					<p className="title">Thông tin người bán</p>
 					<div className={cx("detail-seller")}>
 						<span className={cx("avatar")}>
 							{seller?.avatar === "" ? (
@@ -163,12 +193,23 @@ function DetailProduct() {
 							</p>
 						</span>
 					</div>
-					<div>
+					<p style={{ marginLeft: 20 }}>Số điện thoại: {seller?.phone}</p>
+					<div className={cx("button")}>
 						<Button>Thêm vào giỏ hàng</Button>
-						<Button>Đặt hàng ngay</Button>
+						<Button primary onClick={handleOrderNow}>Đặt hàng ngay</Button>
 					</div>
 				</Col>
 			</Row>
+			<div className={cx("inner-content", "other-items")}>
+				<p className="title">Các sản phẩm tương tự</p>
+				<div style={{ display: "flex", flexWrap: "wrap" }}>
+					{subCategoryProducts &&
+						subCategoryProducts?.map(
+							(product, key) =>
+								product._id !== id && <CardProduct key={key} product={product} />
+						)}
+				</div>
+			</div>
 		</div>
 	);
 }
