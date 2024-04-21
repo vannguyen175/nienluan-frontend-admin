@@ -149,7 +149,7 @@ function OrderProduct() {
 		if (dataCreate?.status === "SUCCESS") {
 			toast.success("Đặt hàng thành công!");
 			setTimeout(() => {
-				navigate("/home");
+				navigate("/");
 			}, 2000);
 		} else if (dataCreate?.status === "ERROR") {
 			toast.error(dataCreate?.message);

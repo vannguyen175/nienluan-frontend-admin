@@ -87,6 +87,7 @@ function DetailProduct() {
 	}, [detail, refetchSeller, refetchSubCategoryProducts]); //detail-seller
 
 	const handleOrderNow = () => {
+		console.log("idUser", idUser);
 		if (idUser) {
 			navigate(`/dat-hang/${id}`);
 		} else {
@@ -196,7 +197,9 @@ function DetailProduct() {
 					<p style={{ marginLeft: 20 }}>Số điện thoại: {seller?.phone}</p>
 					<div className={cx("button")}>
 						<Button>Thêm vào giỏ hàng</Button>
-						<Button primary onClick={handleOrderNow}>Đặt hàng ngay</Button>
+						<Button primary onClick={handleOrderNow}>
+							Đặt hàng ngay
+						</Button>
 					</div>
 				</Col>
 			</Row>

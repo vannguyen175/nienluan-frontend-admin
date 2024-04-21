@@ -1,82 +1,73 @@
-import Button from "~/components/Button";
 import { Row, Col } from "react-bootstrap";
 import classNames from "classnames/bind";
 import style from "./Profile.module.scss";
-import * as UserService from "~/service/UserService";
-import Profilechanged from "./ProfileChanged";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { Menu } from "antd";
+import { HomeOutlined, SettingOutlined } from "@ant-design/icons";
+import AccountInfo from "./AccountInfo";
+import Analytics from "./Analytics";
+import ForSeller from "./ForSeller";
 
 const cx = classNames.bind(style);
 
-function Profile() {
-	const [modalShow, setModalShow] = useState(false);
-	const [userProfile, setUserProfile] = useState({
-		name: "",
-		email: "",
-		isAdmin: "",
-		phone: "",
-		adsress: "",
-		avatar: "",
-		rating: "",
-	});
-	async function detailsUser() {
-		const id = localStorage.getItem("id_user");
-		const token = localStorage.getItem("access_token");
-		await UserService.getDetailUser(id, token).then((data) => {
-			setUserProfile({
-				name: data.result.name,
-				email: data.result.email,
-				isAdmin: data.result.isAdmin || "Người dùng / Người bán hàng",
-				phone: data.result.phone || "Chưa có",
-				adsress: data.result.adsress || "Chưa có",
-				avatar: data.result.avatar,
-				rating: data.result.rating || "Chưa có",
-			});
-		});
-	}
+function getItem(label, key, icon, children, type) {
+	return {
+		key,
+		icon,
+		children,
+		label,
+		type,
+	};
+}
 
-	useEffect(() => {
-		detailsUser();
-	}, []);
+const items = [
+	getItem("Tài khoản", "sub1", <HomeOutlined />, [
+		getItem("Thông tin", "1"),
+		getItem("Thống kê", "2"),
+		getItem("Lịch sử", "3"),
+		getItem("Nhà bán hàng", "4"),
+	]),
+	getItem("Hệ thống", "sub2", <SettingOutlined />, [
+		getItem("Cài đặt", "5"),
+		getItem("Trợ giúp", "6"),
+	]),
+];
+
+function Profile() {
+	const [selectedKey, setSelectedKey] = useState(localStorage.getItem("profile_option") || "1"); //selected key menu
+
+	const onClick = (e) => {
+		localStorage.setItem("profile_option", e.key);
+		setSelectedKey(e.key);
+	};
 
 	return (
 		<div>
-			<Row style={{ display: "flex" }}>
-				<Col xs={4} className={cx("inner-content")}>
-					<div className={cx("info-user")}>
-						<div>
-							<img src={userProfile.avatar} alt="anh-dai-dien" />
-							<span>
-								<p className={cx("title")}>{userProfile.name}</p>
-								<p>Đánh giá: {userProfile.rating}</p>
-							</span>
-						</div>
-
-						<Button onClick={() => setModalShow(true)}>
-							Chỉnh sửa thông tin tài khoản
-						</Button>
-						<Profilechanged
-							show={modalShow}
-							onHide={() => setModalShow(false)}
-							data={userProfile}
+			<Row style={{ margin: "10px auto" }}>
+				<Col xs={3}>
+					<div className="inner-content">
+						<Menu
+							onClick={onClick}
+							style={{
+								width: 256,
+							}}
+							defaultSelectedKeys={[selectedKey]}
+							defaultOpenKeys={["sub1"]}
+							mode="inline"
+							items={items}
 						/>
-						<p>
-							<strong>Email:</strong> {userProfile.email}
-						</p>
-						<p>
-							<strong>Số điện thoại:</strong> {userProfile.phone}
-						</p>
-						<p>
-							<strong>Địa chỉ:</strong> {userProfile.adsress}
-						</p>
-						<p>
-							<strong>Vai trò:</strong> {userProfile.isAdmin}
-						</p>
 					</div>
 				</Col>
-				<Col className={cx("inner-content")}>
-					<Button>Đang bán</Button>
-					<Button>Đã bán</Button>
+				<Col>
+					<div className={cx("right")}>
+						{selectedKey === "1" ? (
+							<AccountInfo />
+						) : selectedKey === "4" ? (
+							<ForSeller />
+						) : (
+							<Analytics />
+						)}
+					</div>
 				</Col>
 			</Row>
 		</div>

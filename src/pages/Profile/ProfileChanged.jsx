@@ -16,10 +16,8 @@ function Profilechanged(props) {
         avatar: props.data.avatar,
         rating: props.data.rating,
     })
-    console.log(profile);
 
     const handleOnchangeName = (e) => {
-        //console.log('value: ', profile);
         setProfile(e.target.value)
     }
 

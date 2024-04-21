@@ -10,7 +10,6 @@ import { ToastContainer, Flip } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ConfigProvider } from "antd";
 
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 // Create a client
 const queryClient = new QueryClient();
@@ -18,7 +17,20 @@ root.render(
 	<QueryClientProvider client={queryClient}>
 		{/* <Provider store={store}> */}
 		{/* <Provider> */}
-		<ConfigProvider theme={{ token: { colorPrimary: "#d78d3a" } }}>
+		<ConfigProvider
+			theme={{
+				token: { colorPrimary: "#d78d3a" },
+				components: {
+					Segmented: {
+						trackBg: "#e6e2d8",
+					},
+					Menu: {
+						subMenuItemBg: "#ffff",
+						activeBarBorderWidth: 0
+					}
+				},
+			}}
+		>
 			<ToastContainer
 				hideProgressBar
 				position="top-center"

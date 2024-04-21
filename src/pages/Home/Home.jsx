@@ -11,21 +11,21 @@ const cx = classNames.bind(style);
 
 function UserHome() {
 	const getProducts = async () => {
-		const res = await ProductService.getAllProducts({ filter: 'approved' });
+		const res = await ProductService.getAllProducts({ filter: "approved", onSale: true });
 		return res.data;
 	};
 
 	const getCategory = async () => {
 		const res = await ProductService.getAllCategories();
 		return res.data;
-	}
+	};
 
 	//lấy thông tin sản phẩm khi vừa truy cập hoặc reload trang
 	const queryProducts = useQuery({ queryKey: ["products"], queryFn: getProducts });
 	const { data: products } = queryProducts;
 
 	//lấy thông tin danh mục khi vừa truy cập hoặc reload trang
-	const queryCategory = useQuery({ queryKey: ["category"], queryFn: getCategory });
+	const queryCategory = useQuery({ queryKey: ["categories"], queryFn: getCategory });
 	const { data: categories } = queryCategory;
 
 	return (
@@ -45,17 +45,18 @@ function UserHome() {
 			<section className={cx("inner-content")}>
 				<p className={cx("title")}>Khám phá danh mục</p>
 				<div>
-					{categories?.map((category, index) => {
-						return (
-							<CategoryButton
-								key={index}
-								to={`san-pham/${category.slug}`}
-								src={`assets/images/danh-muc-${category.slug}.jpg`}
-								alt={category.slug}
-								type={category.name}
-							/>
-						);
-					})}
+					{categories &&
+						categories?.map((category, index) => {
+							return (
+								<CategoryButton
+									key={index}
+									to={`san-pham/${category.slug}`}
+									src={`assets/images/danh-muc-${category.slug}.jpg`}
+									alt={category.slug}
+									type={category.name}
+								/>
+							);
+						})}
 				</div>
 			</section>
 
@@ -63,7 +64,9 @@ function UserHome() {
 				<p className={cx("title")}>Tin đăng mới</p>
 				<div style={{ display: "flex", flexWrap: "wrap" }}>
 					{products &&
-						products?.map((product, key) => <CardProduct key={key} product={product} />)}
+						products?.map((product, key) => (
+							<CardProduct key={key} product={product} />
+						))}
 				</div>
 			</section>
 		</div>

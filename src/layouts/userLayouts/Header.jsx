@@ -95,7 +95,7 @@ function Header() {
 		}
 	}, []);
 	const handleLogout = async () => {
-		await localStorage.clear("access_token");
+		await localStorage.clear();
 		navigate("/");
 	};
 
