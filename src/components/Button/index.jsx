@@ -13,6 +13,8 @@ function Button({
     children,
     onClick,
     button,
+    disabled,
+    danger,
     ...passProps
 }) {
     let Comp = "button";
@@ -30,7 +32,9 @@ function Button({
     const classes = cx("wrapper", {
         chosenBtn,
         primary,
-        button
+        button,
+        disabled,
+        danger
     });
     return (
         <Comp style={{ ...styleBtn }} className={classes} {...props}>

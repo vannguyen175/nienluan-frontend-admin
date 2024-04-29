@@ -1,0 +1,36 @@
+.container {
+    margin: auto;
+    width: 900px;
+}
+
+.cart {
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 20px 10px;
+
+    img {
+        width: 100px;
+        height: 100px;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+
+    .detail {
+        margin-left: 40px;
+        .name {
+            font-weight: 500;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+        .price {
+            color: red;
+            margin-bottom: 20px;
+        }
+    }
+
+    .action {
+        padding-top: 10px;
+    }
+
+}

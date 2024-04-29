@@ -56,3 +56,20 @@ a[href].chosenBtn {
 		background-color: var(--light-color);
 	}
 }
+
+.disabled {
+	background-color: rgb(198, 198, 198);
+	color: white;
+	pointer-events: none;
+	border: none;
+}
+
+.danger {
+	border: 1px solid red;
+	color: red;
+
+	&:hover {
+		background-color: rgb(255, 212, 212);
+		color: red;
+	}
+}

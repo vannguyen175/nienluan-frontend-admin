@@ -32,8 +32,11 @@ export const createProduct = async (data) => {
 	return res.data;
 };
 
-export const updateProduct = async ( id,data) => {
-	const res = await Axios.put(`${process.env.REACT_APP_API_URL_BACKEND}/product/update/${id}`, data);
+export const updateProduct = async (id, data) => {
+	const res = await Axios.put(
+		`${process.env.REACT_APP_API_URL_BACKEND}/product/update/${id}`,
+		data
+	);
 	return res.data;
 };
 
@@ -45,5 +48,12 @@ export const getAllProducts = async (data) => {
 
 export const detailProduct = async (id) => {
 	const res = await Axios.get(`${process.env.REACT_APP_API_URL_BACKEND}/product/detail/${id}`);
+	return res.data;
+};
+
+export const getProductSeller = async (id) => {
+	const res = await Axios.get(
+		`${process.env.REACT_APP_API_URL_BACKEND}/product/getAll/seller/${id}`
+	);
 	return res.data;
 };

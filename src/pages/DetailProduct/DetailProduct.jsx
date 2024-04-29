@@ -4,6 +4,7 @@ import Carousel from "react-bootstrap/Carousel";
 import { useQuery } from "@tanstack/react-query";
 import * as ProductService from "~/service/ProductService";
 import * as UserService from "~/service/UserService";
+import * as CartService from "~/service/CartService";
 import ReactTimeAgo from "react-time-ago";
 import {
 	UserOutlined,
@@ -12,6 +13,7 @@ import {
 	CheckOutlined,
 	SendOutlined,
 } from "@ant-design/icons";
+import { toast } from "react-toastify";
 
 //import Button from "~/components/Button";
 import { Row, Col } from "react-bootstrap";
@@ -87,9 +89,22 @@ function DetailProduct() {
 	}, [detail, refetchSeller, refetchSubCategoryProducts]); //detail-seller
 
 	const handleOrderNow = () => {
-		console.log("idUser", idUser);
 		if (idUser) {
 			navigate(`/dat-hang/${id}`);
+		} else {
+			navigate("/login", { state: location.pathname });
+		}
+	};
+
+	const handleAddCart = async () => {
+		if (idUser) {
+			console.log("click add cart");
+			const addCart = await CartService.createCart({ idUser, idProduct: detail._id });
+			if (addCart?.status === "SUCCESS") {
+				toast.success("Thêm vào giỏ hàng thành công!");
+			} else if (addCart?.status === "EXIST") {
+				toast.warning("Bạn đã thêm sản phẩm này rồi");
+			}
 		} else {
 			navigate("/login", { state: location.pathname });
 		}
@@ -175,32 +190,49 @@ function DetailProduct() {
 						</p>
 					</div>
 				</Col>
-				<Col className={cx("inner-content", "right")}>
-					<hr style={{ marginTop: 43 }} />
-					<p className="title">Thông tin người bán</p>
-					<div className={cx("detail-seller")}>
-						<span className={cx("avatar")}>
-							{seller?.avatar === "" ? (
-								<img src="/assets/images/user-avatar.jpg" alt="avatar" />
-							) : (
-								<img src={`/assets/images/${seller?.avata}`} alt="avatar" />
-							)}
-						</span>
-						<span>
-							<p className={cx("name")}>{seller?.name}</p>
-							<p>
-								Đánh giá:
-								{seller?.rating === 0 ? " Chưa có đánh giá" : seller?.rating}
-							</p>
-						</span>
+				<Col
+					className={cx("inner-content", "right")}
+					// style={{
+					// 	backgroundImage: `url("https://i.pinimg.com/564x/2d/bf/41/2dbf41a04990bd1a30c9638ccfced84a.jpg")`,
+					// 	backgroundRepeat: "no-repeat",
+					// 	backgroundSize: "cover",
+					// }}
+				>
+					<div>
+						<hr style={{ marginTop: 43 }} />
+						<p className="title">Thông tin người bán</p>
+						<div className={cx("detail-seller")}>
+							<span className={cx("avatar")}>
+								{seller?.avatar === "" ? (
+									<img src="/assets/images/user-avatar.jpg" alt="avatar" />
+								) : (
+									<img src={`/assets/images/${seller?.avata}`} alt="avatar" />
+								)}
+							</span>
+							<span>
+								<p className={cx("name")}>{seller?.name}</p>
+								<p>
+									Đánh giá:
+									{seller?.rating === 0 ? " Chưa có đánh giá" : seller?.rating}
+								</p>
+							</span>
+						</div>
+						<p style={{ marginLeft: 20 }}>Số điện thoại: {seller?.phone}</p>
+						<div className={cx("button")}>
+							<Button onClick={handleAddCart}>Thêm vào giỏ hàng</Button>
+							<Button primary onClick={handleOrderNow}>
+								Đặt hàng ngay
+							</Button>
+						</div>
 					</div>
-					<p style={{ marginLeft: 20 }}>Số điện thoại: {seller?.phone}</p>
-					<div className={cx("button")}>
-						<Button>Thêm vào giỏ hàng</Button>
-						<Button primary onClick={handleOrderNow}>
-							Đặt hàng ngay
-						</Button>
-					</div>
+					{/* <div
+						style={{
+							backgroundImage: `url("https://i.pinimg.com/236x/67/2e/43/672e43bb9b512e30a163012f0974622b.jpg")`,
+							backgroundRepeat: "no-repeat",
+							backgroundSize: "cover",
+							height: "400px",
+						}}
+					></div> */}
 				</Col>
 			</Row>
 			<div className={cx("inner-content", "other-items")}>

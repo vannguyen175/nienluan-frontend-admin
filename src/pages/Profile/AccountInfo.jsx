@@ -145,7 +145,7 @@ function AccountInfo() {
 								<p>
 									Vai trò
 									<span>
-										{userProfile?.isAdmin ? "Quản trị viên" : "Người dùng"}
+										{userProfile?.isAdmin===true ? "Quản trị viên" : "Người dùng"}
 									</span>
 								</p>
 								<p>

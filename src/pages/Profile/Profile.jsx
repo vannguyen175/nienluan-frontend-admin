@@ -6,7 +6,8 @@ import { Menu } from "antd";
 import { HomeOutlined, SettingOutlined } from "@ant-design/icons";
 import AccountInfo from "./AccountInfo";
 import Analytics from "./Analytics";
-import ForSeller from "./ForSeller";
+import ManagerOrder from "./ManagerOrder";
+import ProductSell from "./ProductSell";
 
 const cx = classNames.bind(style);
 
@@ -23,9 +24,11 @@ function getItem(label, key, icon, children, type) {
 const items = [
 	getItem("Tài khoản", "sub1", <HomeOutlined />, [
 		getItem("Thông tin", "1"),
+		getItem("Nhà bán hàn", "3", null, [
+			getItem("Sản phẩm đang bán", "31"),
+			getItem("Quản lý đơn hàng", "32"),
+		]),
 		getItem("Thống kê", "2"),
-		getItem("Lịch sử", "3"),
-		getItem("Nhà bán hàng", "4"),
 	]),
 	getItem("Hệ thống", "sub2", <SettingOutlined />, [
 		getItem("Cài đặt", "5"),
@@ -62,8 +65,10 @@ function Profile() {
 					<div className={cx("right")}>
 						{selectedKey === "1" ? (
 							<AccountInfo />
-						) : selectedKey === "4" ? (
-							<ForSeller />
+						) : selectedKey === "32" ? (
+							<ManagerOrder />
+						) : selectedKey === "31" ? (
+							<ProductSell />
 						) : (
 							<Analytics />
 						)}

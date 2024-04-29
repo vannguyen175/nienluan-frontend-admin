@@ -7,6 +7,7 @@ import UserLayout from "~/layouts/userLayouts/userLayout";
 import AdminLayout from "../layouts/adminLayouts/adminLayout";
 import NoneFooterLayout from "../layouts/noneFooterLayout/noneFooterLayout";
 import OrderProduct from "../pages/OrderProduct/OrderProduct";
+import Cart from "../pages/Cart/Cart";
 
 import { Fragment } from "react";
 import Profile from "~/pages/Profile/Profile";
@@ -35,6 +36,11 @@ export const routes = [
         path: "/dat-hang/:id",
         page: OrderProduct,
         layout: NoneFooterLayout
+    },
+    {
+        path: "/gio-hang/:id",
+        page: Cart,
+        layout: UserLayout
     },
     {
         path: "/profile",

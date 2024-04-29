@@ -28,7 +28,7 @@ export const convertToSlug = (name) => {
 export const StringTocamelCase = (str) => {
 	// Using replace method with regEx
 	return str
-	.normalize("NFD")
+		.normalize("NFD")
 		.replace(/[\u0300-\u036f]/g, "")
 		.replace(/đ|Đ/g, "d")
 		.replace(/\s(.)/g, function (a) {
@@ -39,3 +39,5 @@ export const StringTocamelCase = (str) => {
 			return b.toLowerCase();
 		});
 };
+
+

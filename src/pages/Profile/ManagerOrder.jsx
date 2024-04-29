@@ -15,7 +15,7 @@ import { toast } from "react-toastify";
 
 const cx = classNames.bind(style);
 
-function ForSeller() {
+function ManagerOrder() {
 	const [modalShow, setModalShow] = useState(false);
 	const [updateOpen, setUpdateOpen] = useState(false); //open modal
 	const [userProfile, setUserProfile] = useState({
@@ -228,7 +228,7 @@ function ForSeller() {
 								<p>
 									Vai trò
 									<span>
-										{userProfile?.isAdmin ? "Quản trị viên" : "Người dùng"}
+										{userProfile?.isAdmin===true ? "Quản trị viên" : "Người dùng"}
 									</span>
 								</p>
 								<p>
@@ -251,10 +251,10 @@ function ForSeller() {
 							onChange={changeFilterState}
 							style={{ padding: "5px 10px", float: "right" }}
 						>
+							<option value="all">Tất cả</option>
 							<option value="waiting">Chưa duyệt</option>
 							<option value="approved">Đã duyệt</option>
 							<option value="reject">Từ chối</option>
-							<option value="all">Tất cả</option>
 						</select>
 						{orders && <Table columns={columns} dataSource={DetailData} />}
 					</div>
@@ -326,4 +326,4 @@ function ForSeller() {
 	);
 }
 
-export default ForSeller;
+export default ManagerOrder;

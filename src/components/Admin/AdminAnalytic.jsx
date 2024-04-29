@@ -3,63 +3,44 @@ import * as orderService from "~/service/OrderService";
 import { Statistic } from "antd";
 import CountUp from "react-countup";
 import classNames from "classnames/bind";
-import style from "./Analytics.module.scss";
+import style from "./AdminHome.module.scss";
 
 const cx = classNames.bind(style);
 
 const formatter = (value) => <CountUp end={value} separator="," />;
 
-function Analytics() {
+function AdminAnalytic() {
 	const [analytics, setAnalytics] = useState();
 	const getAnalyticOrder = async () => {
-		const data = await orderService.getAnalyticsOrder(localStorage.getItem("id_user"));
-		console.log("data", data);
+		const data = await orderService.getAnalyticsOrder();
 		setAnalytics(data);
 	};
-	console.log("analytics", analytics?.listProductBought);
+
 	useEffect(() => {
 		getAnalyticOrder();
 	}, []);
 	return (
 		<div>
 			<div className="inner-content" style={{ paddingLeft: 50 }}>
-				<p className="title">Thống kê với vai trò người dùng</p>
+				<p className="title">Thống kê bài đăng sản phẩm</p>
 				<Statistic
 					className={cx("statistic-card")}
-					title="Số sản phẩm đã mua"
-					value={analytics?.listProductBought?.length}
-					formatter={formatter}
-				/>
-
-				<Statistic
-					className={cx("statistic-card")}
-					title="Đơn hàng chờ duyệt"
+					title="Sản phẩm chờ duyệt"
 					value={analytics?.listProductWaiting?.length}
 					formatter={formatter}
 				/>
 
 				<Statistic
 					className={cx("statistic-card")}
-					title="Tổng tiền đã mua"
-					value={analytics?.priceBought}
-					precision={2}
+					title="Số sản phẩm đang bán"
+					value={analytics?.listProductSelling?.length}
 					formatter={formatter}
 				/>
-			</div>
-			<div className="inner-content" style={{ paddingLeft: 50 }}>
-				<p className="title">Thống kê với vai trò nhà bán hàng</p>
 
 				<Statistic
 					className={cx("statistic-card")}
 					title="Số sản phẩm đã bán"
-					value={analytics?.listProductSelled?.length}
-					formatter={formatter}
-				/>
-
-				<Statistic
-					className={cx("statistic-card")}
-					title="Đơn hàng chờ duyệt"
-					value={analytics?.listOrderWaiting?.length}
+					value={analytics?.listOrderSelled?.length}
 					formatter={formatter}
 				/>
 
@@ -75,4 +56,4 @@ function Analytics() {
 	);
 }
 
-export default Analytics;
+export default AdminAnalytic;

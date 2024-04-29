@@ -26,8 +26,8 @@ root.render(
 					},
 					Menu: {
 						subMenuItemBg: "#ffff",
-						activeBarBorderWidth: 0
-					}
+						activeBarBorderWidth: 0,
+					},
 				},
 			}}
 		>
