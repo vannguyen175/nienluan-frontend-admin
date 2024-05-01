@@ -2,10 +2,11 @@ import { Menu } from "antd";
 import style from "./AdminHome.module.scss";
 import classNames from "classnames/bind";
 import { useState } from "react";
-import { UserOutlined, ProductOutlined, BarChartOutlined } from "@ant-design/icons";
+import { UserOutlined, ProductOutlined, BarChartOutlined, ApartmentOutlined } from "@ant-design/icons";
 import AdminAccount from "~/components/Admin/AdminAccount";
 import AdminProduct from "~/components/Admin/AdminProduct";
 import AdminAnalytic from "~/components/Admin/AdminAnalytic";
+import AdminCategory from "~/components/Admin/AdminCategory";
 
 const cx = classNames.bind(style);
 
@@ -21,11 +22,14 @@ function getItem(label, key, icon, children, type) {
 const items = [
 	getItem("Tài khoản", "account", <UserOutlined />),
 	getItem("Sản phẩm", "product", <ProductOutlined />),
+	getItem("Danh mục", "category", <ApartmentOutlined />),
 	getItem("Thống kê", "analytic", <BarChartOutlined />),
 ];
 
 function AdminHomePage() {
-	const [keySelected, setStateSelected] = useState(localStorage.getItem("menu_admin_key") || "account");
+	const [keySelected, setStateSelected] = useState(
+		localStorage.getItem("menu_admin_key") || "account"
+	);
 	const onClick = (e) => {
 		localStorage.setItem("menu_admin_key", e.key);
 		setStateSelected(e.key);
@@ -54,6 +58,8 @@ function AdminHomePage() {
 						<AdminAccount />
 					) : keySelected === "product" ? (
 						<AdminProduct />
+					) : keySelected === "category" ? (
+						<AdminCategory />
 					) : (
 						<AdminAnalytic />
 					)}

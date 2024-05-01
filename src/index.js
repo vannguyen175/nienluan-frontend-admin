@@ -19,7 +19,7 @@ root.render(
 		{/* <Provider> */}
 		<ConfigProvider
 			theme={{
-				token: { colorPrimary: "#d78d3a" },
+				token: { colorPrimary: "#d78d3a", fontSize: 18 },
 				components: {
 					Segmented: {
 						trackBg: "#e6e2d8",

@@ -21,7 +21,7 @@ function AdminAnalytic() {
 	}, []);
 	return (
 		<div>
-			<div className="inner-content" style={{ paddingLeft: 50 }}>
+			<div style={{ paddingLeft: 50 }}>
 				<p className="title">Thống kê bài đăng sản phẩm</p>
 				<Statistic
 					className={cx("statistic-card")}

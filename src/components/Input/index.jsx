@@ -17,6 +17,7 @@ function InputComp({
 	placeholder = "",
 	textarea,
 	readOnly,
+	disabled,
 	required,
 	...props
 }) {
@@ -42,7 +43,7 @@ function InputComp({
 		<div>
 			<span className={cx("container")}>
 				<Comp
-					className={cx("input")}
+					className={cx("input", { disabled: disabled })}
 					type={type}
 					placeholder=""
 					ref={innerRef}
@@ -60,9 +61,7 @@ function InputComp({
 				/>
 				<label className={cx("text")}>
 					{text}
-					{required && (
-						<span style={{ color: 'red' }}>*</span>
-					)}
+					{required && <span style={{ color: "red" }}>*</span>}
 				</label>
 				{avatar ? <img src={valueInput} alt="avatar" /> : ""}
 			</span>

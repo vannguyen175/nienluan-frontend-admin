@@ -7,7 +7,7 @@ import * as OrderService from "~/service/OrderService";
 import Profilechanged from "./ProfileChanged";
 import { useEffect, useState } from "react";
 import { EditOutlined } from "@ant-design/icons";
-import { Space, Table, Tag } from "antd";
+import {  Table, Tag } from "antd";
 import { useQuery } from "@tanstack/react-query";
 
 const cx = classNames.bind(style);
